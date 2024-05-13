@@ -1,4 +1,11 @@
 {
-  "layout": "custom_theme"
-  
+  "sections": {
+    "template": {
+      "type": "template-404"
+    },
+    "content": {
+      "type": "example"
+    }
+  },
+  "order": ["template", "content"]
 }
