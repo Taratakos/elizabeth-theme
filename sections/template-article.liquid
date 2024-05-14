@@ -68,7 +68,7 @@
               <div class="flex-1 border my-4 px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
                 <span class="comment-author">{{ comment.author }}</span>
                 <span class="text-xs text-gray-400">{{ comment.created_at | date: format: 'default' }}</span>
-                <p class="text-sm">{{ comment.content }}</p>
+                <p class="text-sm">{{ comment.content | truncatewords: 5 }}</p>
               </div>
             {% endfor %}
 
