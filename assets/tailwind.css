@@ -778,6 +778,10 @@ video {
   max-width: 28rem;
 }
 
+.max-w-6 {
+  max-width: 1.5rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -1336,6 +1340,11 @@ video {
   .md\:mx-auto {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .md\:my-16 {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
   }
 
   .md\:flex {
