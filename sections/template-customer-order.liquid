@@ -17,7 +17,7 @@
             {% if line_item.image %}
               <img
                 class="w-full h-full object-center object-cover"
-                src="{{ line_item.image | img_url: 'medium' }}"
+                src="{{ line_item.image | image_url: width:350 }}"
                 alt="{{ line_item.image.alt }}">
             {% else %}
               {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-center object-cover' }}
@@ -103,18 +103,18 @@
           {% assign credit_card_company = transaction.payment_details.credit_card_company %}
           {% assign credit_card_last_four_digits = transaction.payment_details.credit_card_number %}
 
-          {% if credit_card_company %}
+            {% if credit_card_company %}
             <p>{{ credit_card_company }}</p>
             <p>{{ credit_card_last_four_digits }}</p>
 
-            {% case transaction.status_label %}
-              {% when 'Failure' %}
-                {% assign background = 'red' %}
-              {% else %}
-                {% assign background = 'green' %}
-            {% endcase %}
+            {% comment %} {% case transaction.status_label %}
+                                                        {% when 'Failure' %}
+                                                          {% assign background = "red" %}
+                                                        {% else %}
+                                                          {% assign background = "green" %}
+                                                {% endcase %} {% endcomment %}
 
-            <span class="bg-{{ background }}-700 rounded-full text-sm px-4 py-1 text-white">{{ transaction.status_label }}</span>
+            <span class="bg-gray-700 rounded-full text-sm px-4 py-1 text-white">{{ transaction.status_label }}</span>
           {% else %}
             <p class="text-sm mb-4">This order is manually placed {{ shop.name }}</p>
           {% endif %}
