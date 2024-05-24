@@ -103,16 +103,16 @@
           {% assign credit_card_company = transaction.payment_details.credit_card_company %}
           {% assign credit_card_last_four_digits = transaction.payment_details.credit_card_number %}
 
-            {% if credit_card_company %}
+          {% if credit_card_company %}
             <p>{{ credit_card_company }}</p>
             <p>{{ credit_card_last_four_digits }}</p>
 
             {% comment %} {% case transaction.status_label %}
-                                                        {% when 'Failure' %}
-                                                          {% assign background = "red" %}
-                                                        {% else %}
-                                                          {% assign background = "green" %}
-                                                {% endcase %} {% endcomment %}
+              {% when 'Failure' %}
+                {% assign background = "red" %}
+              {% else %}
+                {% assign background = "green" %}
+            {% endcase %} {% endcomment %}
 
             <span class="bg-gray-700 rounded-full text-sm px-4 py-1 text-white">{{ transaction.status_label }}</span>
           {% else %}
