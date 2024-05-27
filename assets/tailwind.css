@@ -625,6 +625,10 @@ video {
   right: 0px;
 }
 
+.bottom-20 {
+  bottom: 5rem;
+}
+
 .right-0 {
   right: 0px;
 }
@@ -639,10 +643,6 @@ video {
 
 .top-5 {
   top: 1.25rem;
-}
-
-.bottom-20 {
-  bottom: 5rem;
 }
 
 .z-10 {
@@ -1215,14 +1215,6 @@ video {
 
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
-}
-
-.bg-opacity-20 {
-  --tw-bg-opacity: 0.2;
-}
-
-.bg-opacity-0 {
-  --tw-bg-opacity: 0;
 }
 
 .object-cover {
