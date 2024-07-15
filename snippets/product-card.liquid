@@ -4,9 +4,10 @@
       {% if product_product.featured_image %}
         <div class="h-80 overflow-hidden">
           <img
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover transition duration-1000 ease-in-out hover:scale-105 transform"
             src="{{ product_product.featured_image | image_url: width:200 }}"
-            alt="{{ product_product.featured_image.alt }}">
+            alt="{{ product_product.featured_image.alt }}"
+          >
         </div>
 
       {% else %}
@@ -15,12 +16,14 @@
     </a>
 
     <div class="flex flex-col p-4">
-      <span class="text-sm text-gray-400">{{ product_product.vendor }}</span>
+      {% if section.settings.enable_vendor %}
+        <span class="text-sm text-gray-400">{{ product_product.vendor }}</span>
+      {% endif %}
 
       <a href="{{ product_product.url }}" class="text-gray-700 uppercase font-medium">{{ product_product.title }}</a>
-
-      <p class="text-gray-500">{{ product_product.price | money }}</p>
+      {% if section.settings.enable_price %}
+        <p class="text-gray-500">{{ product_product.price | money }}</p>
+      {% endif %}
     </div>
-
   </div>
 </div>
