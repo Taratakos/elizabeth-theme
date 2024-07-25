@@ -825,16 +825,16 @@ video {
   width: 1.5rem;
 }
 
+.w-80 {
+  width: 20rem;
+}
+
 .w-full {
   width: 100%;
 }
 
 .w-screen {
   width: 100vw;
-}
-
-.w-80 {
-  width: 20rem;
 }
 
 .max-w-4xl {
@@ -999,6 +999,10 @@ video {
   white-space: nowrap;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
@@ -1013,10 +1017,6 @@ video {
 
 .rounded-sm {
   border-radius: 0.125rem;
-}
-
-.rounded {
-  border-radius: 0.25rem;
 }
 
 .border {
