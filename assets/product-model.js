@@ -1,54 +1,59 @@
-class ProductModel extends HTMLElement {
-  constructor() {
-    super();
-    this.openModelModal();
-    this.addEventListener('click', this.loadContent);
-  }
+if (!customElements.get('product-model')) {
+  customElements.define(
+    'product-model',
+    class ProductModel extends DeferredMedia {
+      constructor() {
+        super();
+      }
 
-  loadContent() {
-    Shopify.loadFeatures(
-      [
-        {
-          name: 'model-viewer-ui',
-          version: '1.0',
-          onLoad: this.setupModelViewerUI.bind(this)
-        }
-      ]
-    )
-  }
+      loadContent() {
+        super.loadContent();
 
-  setupModelViewerUI(errors) {
-    if (errors) return;
-    this.modelViewerUI = new Shopify.ModelViewerUI(document.querySelector('model-viewer'))
-  }
+        Shopify.loadFeatures([
+          {
+            name: 'model-viewer-ui',
+            version: '1.0',
+            onLoad: this.setupModelViewerUI.bind(this),
+          },
+        ]);
+      }
 
-  getMediaID() {
-    const id = this.getAttribute('data-media-id');
-    return id;
-  }
+      setupModelViewerUI(errors) {
+        if (errors) return;
 
-  getModal() {
-    const modal = document.getElementById("productModelModal");
-    return modal;
-  }
-
-  openModelModal() {
-    const mediaID = this.getMediaID();
-    const modal = this.getModal();
-
-    if (!mediaID) return;
-
-    const openModalButton = this.querySelector(`button[id="productModelOpenButton_${mediaID}"]`);
-
-    openModalButton.addEventListener('click', function (e) {
-      modal.querySelector("#body").innerHTML = "";
-
-      const template = document.querySelector(`product-model[data-media-id="${mediaID}"] > template`);
-      const clone = template.content.cloneNode(true);
-      modal.querySelector("#body").appendChild(clone);
-      modal.querySelector("#body > model-viewer").setAttribute("reveal", "auto");
-    });
-  }
+        this.modelViewerUI = new Shopify.ModelViewerUI(this.querySelector('model-viewer'));
+      }
+    }
+  );
 }
 
-const productModel = customElements.define('product-model', ProductModel);
+window.ProductModel = {
+  loadShopifyXR() {
+    Shopify.loadFeatures([
+      {
+        name: 'shopify-xr',
+        version: '1.0',
+        onLoad: this.setupShopifyXR.bind(this),
+      },
+    ]);
+  },
+
+  setupShopifyXR(errors) {
+    if (errors) return;
+
+    if (!window.ShopifyXR) {
+      document.addEventListener('shopify_xr_initialized', () => this.setupShopifyXR());
+      return;
+    }
+
+    document.querySelectorAll('[id^="ProductJSON-"]').forEach((modelJSON) => {
+      window.ShopifyXR.addModels(JSON.parse(modelJSON.textContent));
+      modelJSON.remove();
+    });
+    window.ShopifyXR.setupXRElements();
+  },
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.ProductModel) window.ProductModel.loadShopifyXR();
+});
